@@ -1,7 +1,10 @@
 @extends('layout')
 
 @section('content')
-    <h1 class="text-2xl">All Books</h1>
+    <div class="flex justify-between mb-5">
+        <h1 class="text-2xl">All Books</h1>
+        <a class="bg-indigo-600 text-white px-6 py-2" href="/showform">add new book</a>
+    </div>
 
     <table>
         <thead>
@@ -18,7 +21,7 @@
             {{-- <h1>{{ count($books) }}</h1> --}}
             @foreach ($books as $book)
                 <tr>
-                    <td class="px-6 border">{{ $book->id }}</td>
+                    <td class="px-6 border">{{ $loop->index + 1 }}</td>
                     <td class="px-6 border">{{ $book->title }}</td>
                     <td class="px-6 border">{{ $book->author }}</td>
                     <td class="px-6 border">{{ $book->published_at }}</td>
