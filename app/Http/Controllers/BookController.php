@@ -14,7 +14,7 @@ class BookController extends Controller
     public function index()
     {
         return view("books.all", [
-            "books" => Book::all()
+            "library" => Book::all()
         ]);
     }
 
@@ -39,30 +39,35 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        // home work for implementing view single book functionality
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Book $book)
+    public function edit($id)
     {
-        //
+        $book = Book::find($id);
+        return view("books.edit", [
+            "book" => $book
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, $id)
     {
-        //
+        Book::find($id)->update($request->all());
+        return redirect("/book");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy(string $id)
     {
-        //
+        Book::destroy($id);
+        return redirect("/book");
     }
 }

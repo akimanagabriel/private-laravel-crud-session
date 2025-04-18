@@ -15,18 +15,29 @@
                 <th class="px-6 border bg-slate-200">Published since</th>
                 <th class="px-6 border bg-slate-200">Written at</th>
                 <th class="px-6 border bg-slate-200">Upated time</th>
+                <th class="px-6 border bg-slate-200">Actions</th>
             </tr>
         </thead>
         <tbody>
             {{-- <h1>{{ count($books) }}</h1> --}}
-            @foreach ($books as $book)
+            @foreach ($library as $book)
                 <tr>
-                    <td class="px-6 border">{{ $loop->index + 1 }}</td>
-                    <td class="px-6 border">{{ $book->title }}</td>
-                    <td class="px-6 border">{{ $book->author }}</td>
-                    <td class="px-6 border">{{ $book->published_at }}</td>
-                    <td class="px-6 border">{{ $book->created_at }}</td>
-                    <td class="px-6 border">{{ $book->updated_at }}</td>
+                    <td class="px-6 py-1 border">{{ $loop->index + 1 }}</td>
+                    <td class="px-6 py-1 border">{{ $book->title }}</td>
+                    <td class="px-6 py-1 border">{{ $book->author }}</td>
+                    <td class="px-6 py-1 border">{{ $book->published_at }}</td>
+                    <td class="px-6 py-1 border">{{ $book->created_at->diffForHumans() }}</td>
+                    <td class="px-6 py-1 border">{{ $book->updated_at }}</td>
+                    <td class="px-6 py-1 border flex gap-5">
+                        <form action="/removebook/{{ $book->id }}" method="post">
+                            @method('delete')
+                            @csrf
+                            <button class="px-6 py-1 text-white bg-amber-800 rounded" type="submit">Delete</button>
+                        </form>
+
+                        <a class="px-6 py-1 text-white bg-green-800 rounded" href="/editbook/{{ $book->id }}">Edit</a>
+
+                    </td>
                 </tr>
             @endforeach
         </tbody>
